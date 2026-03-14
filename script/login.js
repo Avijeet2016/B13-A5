@@ -6,9 +6,13 @@ document.getElementById("signIn-btn").addEventListener('click', function() {
 
     if (usernameValue === "admin" && pwdValue === "admin123") {
         window.location.assign('/home.html');
+        username.value = "";
+        password.value = "";
     }
     else {
-        alert('Sign In Failed, Try Again');
+        alert("Sign In Failed, Try Again");
+        username.value = "";
+        password.value = "";
         return;
     }
 })

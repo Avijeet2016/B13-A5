@@ -28,7 +28,7 @@
             <h2 class="font-bold">GitHub Issues Tracker</h2>
         </div>
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center w-full gap-4 sm:w-auto">
-            <label class="input w-full sm:w-auto">
+            <label class="input w-full sm:w-auto rounded-md">
             <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g
                 stroke-linejoin="round"
@@ -41,7 +41,7 @@
                 <path d="m21 21-4.3-4.3"></path>
                 </g>
             </svg>
-            <input type="search" required placeholder="Search issues..." class="w-full"/>
+            <input type="search" id="input-search" required placeholder="Search issues..." class="w-full "/>
             </label>
             <button class="bg-[#4A00FF] text-white whitespace-nowrap px-4 py-2 rounded-md active"><i class="fa-solid fa-plus"></i> New Issue</button>
         </div>
@@ -74,6 +74,9 @@
         </section>
         <!-- Card Container  -->
         <section id="card-container" class="bg-[#FBFBFB] grid grid-cols-1 sm:grid-cols-4 sm:gap-3 p-6 shadow-md rounded-b-md"> 
+            <div class="flex justify-center items-center col-span-full">
+                <span id="spinner" class="loading loading-bars loading-lg hidden"></span>
+            </div>
             <!-- All cards will be dynamically added here  --> 
             <!-- <div class="card  bg-[#FFFFFF] card-md shadow-sm border-t-4 border-green-400 space-y-4"> 
                 <div class="flex justify-between items-center px-4 pt-4">

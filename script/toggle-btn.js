@@ -2,12 +2,23 @@ const allBtn = document.querySelectorAll('.btn');
 const cardContainer = document.getElementById("card-container");
 const totalIssues = document.getElementById("total-issue");
 const cardDetails = document.getElementById("card-details");
+const spinner = document.getElementById('spinner');
+const inputSearch = document.getElementById("input-search");
+let allIssues = [];
 
 
 const currentPriority = {
     high: "bg-[#FEECEC] text-[#EF4444]",
     medium: "bg-[#FFF6D1] text-[#F59E0B]",
     low: "bg-[#EEEFF2] text-[#9CA3AF]"
+}
+
+const showSpinner = () => {
+    spinner.classList.remove('hidden');
+}
+
+const hideSpinner = () => {
+    spinner.classList.add('hidden');
 }
 
 
@@ -40,9 +51,12 @@ const labelStyle = {
 
 
 const loadIssues = async () => {
+    showSpinner();
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
     const res = await fetch(url);
     const data = await res.json();
+    hideSpinner();
+    allIssues = data.data;
     displayAllIssues(data.data);
 }
 
@@ -87,9 +101,11 @@ const displayAllIssues = (data) => {
 }
 
 const loadOpen = async () => {
+    showSpinner();
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
     const res = await fetch(url);
     const data = await res.json();
+    hideSpinner();
     displayOpen(data.data);
 }
 
@@ -136,9 +152,11 @@ const displayOpen = (data) => {
 
 
 const loadClosed = async () => {
+    showSpinner();
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
     const res = await fetch(url);
     const data = await res.json();
+    hideSpinner();
     displayClosed(data.data);
 }
 
@@ -149,7 +167,7 @@ const displayClosed = (data) => {
     const newSpan = document.createElement("span");
     newSpan.innerHTML = `${statusClosed.length}`;
     totalIssues.appendChild(newSpan);
-    console.log(statusClosed);
+
     statusClosed.forEach((item) => {
     const newDiv = document.createElement("div");
 
@@ -207,7 +225,7 @@ const loadCardDetails = async (id) => {
 
 const displayCardDetails = (data) => {
     cardDetails.innerHTML = "";
-    console.log(data);
+
     let labelsHtml = "";
     data.labels.forEach((i) => {
       if (labelStyle[i]) {
@@ -243,5 +261,12 @@ const displayCardDetails = (data) => {
     document.getElementById("my_modal_5").showModal();
 }
 
+inputSearch.addEventListener('input', (e) => {
+    const searchText = e.target.value.toLowerCase();
+
+    const filteredIssues = allIssues.filter((item) => item.title.toLowerCase().includes(searchText));
+    displayAllIssues(filteredIssues);
+})
 
 loadIssues();
+
