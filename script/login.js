@@ -5,7 +5,8 @@ document.getElementById("signIn-btn").addEventListener('click', function() {
     const pwdValue = password.value;
 
     if (usernameValue === "admin" && pwdValue === "admin123") {
-        window.location.assign('./home.html');
+        window.location.href = "home.html";
+        // window.location.assign('./home.html');
         username.value = "";
         password.value = "";
     }
